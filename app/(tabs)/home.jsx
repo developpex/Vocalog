@@ -5,6 +5,7 @@ import { StatusBar } from "expo-status-bar";
 import { SafeAreaView } from "react-native-safe-area-context";
 import {
   ActivityIndicator,
+  RefreshControl,
   ScrollView,
   Text,
   TouchableOpacity,
@@ -20,8 +21,15 @@ const Home = () => {
   const [transcribedText, setTranscribedText] = useState("");
   const [isRecording, setIsRecording] = useState(false);
   const [isTranscribing, setIsTranscribing] = useState(false);
+  const [refreshing, setRefreshing] = useState(false);
 
   const audioRecordingRef = useRef(new Audio.Recording());
+
+  const onRefresh = () => {
+    setRefreshing(true);
+    setTranscribedText("");
+    setRefreshing(false);
+  };
 
   const startRecording = async () => {
     setIsRecording(true);
@@ -44,7 +52,12 @@ const Home = () => {
 
   return (
     <SafeAreaView className="h-full bg-primary">
-      <ScrollView className="p-4">
+      <ScrollView
+        className="p-4"
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }
+      >
         <View className="items-center justify-center">
           <Text className="font-psemibold text-3xl text-white">Home</Text>
           <View
@@ -56,8 +69,7 @@ const Home = () => {
               <Text
                 className={`p-2 font-pregular ${transcribedText ? "text-white" : "text-gray-500"}`}
               >
-                {transcribedText ||
-                  "Your transcribed text Your transcribed text Your transcribed text Your transcribed text Your transcribed text Your transcribed text Your transcribed text Your transcribed text Your transcribed text"}
+                {transcribedText || "Your transcribed comes here"}
               </Text>
             )}
           </View>
