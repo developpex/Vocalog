@@ -25,8 +25,11 @@ export const speechToText = async (req: Request, res: Response) => {
           "Content-Type": "application/json",
           "X-goog-api-key": `${process.env.GOOGLE_SPEECH_TO_TEXT_API_KEY}`,
         },
-      }
+      },
     ).then((response) => response.json());
+
+    console.log({ speechResults });
+
     return res.send(speechResults);
   } catch (err) {
     console.error("Error converting speech to text: ", err);
