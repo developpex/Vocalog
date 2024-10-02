@@ -39,4 +39,3 @@ yarn-error.*
 
 # server/.env
 server/.env
-server/.env

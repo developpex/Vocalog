@@ -1,13 +1,35 @@
-import { Link } from "expo-router";
+import { Redirect, router } from "expo-router";
 import { StatusBar } from "expo-status-bar";
-import { Text, View } from "react-native";
+import { Image, ScrollView, Text, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
+
+import CustomButton from "../components/CustomButton";
+import { useGlobalContext } from "../context/GlobalProvider";
+import { images } from "../constants";
 
 export default function App() {
-	return (
-		<View className="flex-1 justify-center items-center">
-			<Text className="text-center text-3xl text-red-800">Vocalog</Text>
-			<Link href="/home">Home</Link>
-			<StatusBar style="auto" />
-		</View>
-	);
+  const { isLoading, isLoggedIn } = useGlobalContext();
+
+  if (!isLoading && isLoggedIn) return <Redirect href="/home" />;
+
+  return (
+    <SafeAreaView className="h-full bg-primary">
+      <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+        <View className="min-h-[85vh] w-full flex-1 items-center justify-center px-4">
+          <Image
+            source={images.logo}
+            className="h-[84px] w-[130px] justify-start"
+            resizeMode="contain"
+          />
+          <CustomButton
+            title="Continue"
+            handlePress={() => router.push("/sign-in")}
+            containerStyles="mt-10 w-full"
+          />
+        </View>
+      </ScrollView>
+
+      <StatusBar backgroundColor="#161622" style="light" />
+    </SafeAreaView>
+  );
 }
