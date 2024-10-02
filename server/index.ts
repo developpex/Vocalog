@@ -26,19 +26,19 @@ app.get("/", (req, res) => {
   res.send("The Speech-to-Text API is up and running!");
 });
 
-// Function to get the local network IP
-// const getNetworkIP = () => {
-//   const interfaces = os.networkInterfaces();
-//   for (const iface of Object.values(interfaces)) {
-//     for (const alias of iface || []) {
-//       if (alias.family === "IPv4" && !alias.internal) {
-//         return alias.address; // Return the first non-internal IPv4 address
-//       }
-//     }
-//   }
-//   return "127.0.0.1"; // Fallback to localhost if no network IP is found
-// };
+//Function to get the local network IP
+const getNetworkIP = () => {
+  const interfaces = os.networkInterfaces();
+  for (const iface of Object.values(interfaces)) {
+    for (const alias of iface || []) {
+      if (alias.family === "IPv4" && !alias.internal) {
+        return alias.address; // Return the first non-internal IPv4 address
+      }
+    }
+  }
+  return "127.0.0.1"; // Fallback to localhost if no network IP is found
+};
 
-app.listen(port, "192.168.110.121", () => {
-  console.log(`Server is running on http://192.168.110.121:${port}`);
+app.listen(port, getNetworkIP(), () => {
+  console.log(`Server is running on ${getNetworkIP()}:${port}`);
 });

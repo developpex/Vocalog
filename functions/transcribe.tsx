@@ -32,7 +32,7 @@ export const transcribe = async (
       const rootOrigin =
         Platform.OS === "android"
           ? //todo: check when on => ? "10.0.2.2"
-            "192.168.110.121" // now im using my local network
+            "192.168.1.51" // now im using my local network
           : Device.isDevice
             ? process.env.LOCAL_DEV_IP || "localhost"
             : "localhost";

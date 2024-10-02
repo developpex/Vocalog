@@ -4,74 +4,91 @@ import { Tabs } from "expo-router";
 import { icons } from "../../constants";
 import { StatusBar } from "expo-status-bar";
 
+import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
+
 const TabIcon = ({ icon, color, name, focused }) => {
-	return (
-		<View className="items-center justify-center gap-2">
-			<Image
-				source={icon}
-				resizeMode="contain"
-				tintColor={color}
-				className="h-6 w-6"
-			/>
-			<Text
-				className={`${
-					focused ? "font-psemibold" : "font-pregular"
-				} text-xs`}
-				style={{ color: color }}>
-				{name}
-			</Text>
-		</View>
-	);
+  return (
+    <View className="items-center justify-center gap-2">
+      <Image
+        source={icon}
+        resizeMode="contain"
+        tintColor={color}
+        className="h-6 w-6"
+      />
+      <Text
+        className={`${focused ? "font-psemibold" : "font-pregular"} text-xs`}
+        style={{ color: color }}
+      >
+        {name}
+      </Text>
+    </View>
+  );
 };
 
 const TabsLayout = () => {
-	return (
-		<>
-			<Tabs
-				screenOptions={{
-					tabBarShowLabel: false,
-					tabBarActiveTintColor: "#FFA001",
-					tabBarInactiveTintColor: "#CDCDE0",
-					tabBarStyle: {
-						backgroundColor: "#161622",
-						borderTopWidth: 1,
-						borderTopColor: "#232533",
-						height: 84,
-					},
-				}}>
-				<Tabs.Screen
-					name="home"
-					options={{
-						title: "Home",
-						headerShown: false,
-						tabBarIcon: ({ color, focused }) => (
-							<TabIcon
-								icon={icons.home}
-								color={color}
-								name="Home"
-								focused={focused}
-							/>
-						),
-					}}
-				/>
-				<Tabs.Screen
-					name="profile"
-					options={{
-						title: "Profile",
-						headerShown: false,
-						tabBarIcon: ({ color, focused }) => (
-							<TabIcon
-								icon={icons.profile}
-								color={color}
-								name="Profile"
-								focused={focused}
-							/>
-						),
-					}}
-				/>
-			</Tabs>
-		</>
-	);
+  return (
+    <>
+      <Tabs
+        screenOptions={{
+          tabBarShowLabel: false,
+          tabBarActiveTintColor: "#FFA001",
+          tabBarInactiveTintColor: "#CDCDE0",
+          tabBarStyle: {
+            backgroundColor: "#161622",
+            borderTopWidth: 1,
+            borderTopColor: "#232533",
+            height: 84,
+          },
+        }}
+      >
+        <Tabs.Screen
+          name="home"
+          options={{
+            title: "Home",
+            headerShown: false,
+            tabBarIcon: ({ color, focused }) => (
+              <TabIcon
+                icon={icons.home}
+                color={color}
+                name="Home"
+                focused={focused}
+              />
+            ),
+          }}
+        />
+        <Tabs.Screen
+          name="log"
+          options={{
+            title: "log",
+            headerShown: false,
+            tabBarIcon: ({ color, focused }) => (
+              <TabIcon
+                icon={icons.file}
+                color={color}
+                name="Log"
+                focused={focused}
+              />
+            ),
+          }}
+        />
+        <Tabs.Screen
+          name="profile"
+          options={{
+            title: "Profile",
+            headerShown: false,
+            tabBarIcon: ({ color, focused }) => (
+              <TabIcon
+                icon={icons.profile}
+                color={color}
+                name="Profile"
+                focused={focused}
+              />
+            ),
+          }}
+        />
+      </Tabs>
+    </>
+  );
 };
 
 export default TabsLayout;
